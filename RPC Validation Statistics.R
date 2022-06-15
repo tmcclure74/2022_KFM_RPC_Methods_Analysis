@@ -118,6 +118,7 @@ for(i in 1:Species_List){
   filtered_data <- Combined_Data[Combined_Data$Species == j,] 
   
   if(filtered_data$average_proportion == c(0, 0, 0, 0) && filtered_data$quad_average_proportion == c(0, 0, 0, 0)){
+    print(j)
     list_i <- c(as.character(Combined_Data$Species[i]),
                 Combined_Data$ScientificName[i],
                 Combined_Data$CommonName[i],
@@ -135,6 +136,17 @@ for(i in 1:Species_List){
 }
 
 write_csv(ChiSq_By_Species, "ChiSq_By_Species_Averages.csv")
+
+#Hold up, is this if/else acting right? I don't think so, because when you print j when it hits the first clause, you get - 
+# 2013, 3005, 4001, 5001, 6003, 6004, 6005, 11008, but when you inspect those with - 
+
+should_be_zeroes <- c(2013, 3005, 4001, 5001, 6003, 6004, 6005, 11008)
+
+Not_Seen <- Combined_Data %>%
+  filter(Species %in% should_be_zeroes)
+
+# you find that 2013 (Pterygophora) and 6004 (Balanophyllia) are actually the only offending species - this is && so it should
+# be only kicking into the if part of the if/else for these two species,but why is it doing it for several of these others??
 
 #---------------------------------------------------------------------------
 
