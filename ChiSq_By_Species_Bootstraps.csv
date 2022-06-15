@@ -1,0 +1,33 @@
+Species,ScientificName,CommonName,ChiSq_p_val
+1001,Chlorophyta,green algae,0.9980123372923377
+2001,Phaeophyta,brown algae (miscellaneous),0.8093205695894078
+2003,Desmarestia,acid weed,0.8425676713888993
+2007,Cystoseira,bladder chain kelp,0.8668423503222829
+2010,Macrocystis pyrifera,"giant kelp, all",0.9999999940930874
+2012,Eisenia arborea,"Southern sea palm, all",0.9999165815296793
+2013,Pterygophora californica,"California sea palm, all",0.19388606770040706
+2014,Laminaria farlowii,"oar weed, all",1.368686273469715e-4
+2017,Sargassum horneri,"Sargassum horneri, all",5.7011046761346335e-5
+3001,Rhodophyta,red algae (miscellaneous),0.9186476350166466
+3002,Corallinales,articulated coralline algae,0.9999999999996905
+3003,Corallinales,encrusting coralline algae,0.9999999996208632
+3004,Gelidium,agar weed,0.426622206913522
+3005,Gigartina,sea tongue,2.321065590289349e-14
+4001,Plantae,miscellaneous plants (ie: diatoms),0.9999999835709005
+5001,Porifera,sponges,1
+6003,Corynactis californicus,club-tipped anemone,1.3161332110645214e-10
+6004,Balanophyllia elegans,orange cup coral,0.7931056923270269
+6005,Astrangia lajollaensis,La Jolla cup coral,1.1058838376195644e-7
+7001,Diopatra ornata,ornate tube worm,0.8466551621304073
+7002,Phragmatopoma californica,colonial sand-tube worm,0.860307073979696
+9001,Serpulorbis squamigerus,scaled wormsnail,0.9368698066600094
+10001,Bryozoa,bryozoans (miscellaneous),0.015111823165733848
+10002,Diaperoecia californica,Southern staghorn bryozoan,0.9999999999988555
+11008,Pachythyone rubra,aggregated red sea cucumber,0.004479434414579161
+11010,Ophiothrix spiculata,spiny brittle star,9.201832583359192e-13
+12001,Tunicata,tunicates,0.002141393545170051
+13002,Miscellaneous Invertebrates excluding Ophiothrix spiculata,Miscellaneous Invertebrates excluding Ophiothrix spiculata,0.8578795978193544
+15001,Bare Substrate,Bare Substrate,0.09723031151277732
+15002,Rock,Rock,0.045767947934732024
+15003,Cobble,Cobble,0.999999122031037
+15004,Sand,Sand,0.9998743961987545

@@ -1,0 +1,33 @@
+Species,ScientificName,CommonName,P_Value
+1001,Chlorophyta,green algae,1
+2001,Phaeophyta,brown algae (miscellaneous),0.238103305553544
+2003,Desmarestia,acid weed,0.513417119032592
+2007,Cystoseira,bladder chain kelp,0.261464129949111
+2010,Macrocystis pyrifera,"giant kelp, all",0.213309305083417
+2012,Eisenia arborea,"Southern sea palm, all",0.287297495183646
+2013,Pterygophora californica,"California sea palm, all",1
+2014,Laminaria farlowii,"oar weed, all",0.238103305553544
+2017,Sargassum horneri,"Sargassum horneri, all",0.367879441171442
+3001,Rhodophyta,red algae (miscellaneous),0.213309305083417
+3002,Corallinales,articulated coralline algae,0.213309305083417
+3003,Corallinales,encrusting coralline algae,0.213309305083417
+3004,Gelidium,agar weed,0.0915781944436709
+3005,Gigartina,sea tongue,1
+4001,Plantae,miscellaneous plants (ie: diatoms),1
+5001,Porifera,sponges,1
+6003,Corynactis californicus,club-tipped anemone,1
+6004,Balanophyllia elegans,orange cup coral,1
+6005,Astrangia lajollaensis,La Jolla cup coral,1
+7001,Diopatra ornata,ornate tube worm,0.238103305553544
+7002,Phragmatopoma californica,colonial sand-tube worm,0.213309305083417
+9001,Serpulorbis squamigerus,scaled wormsnail,0.135335283236613
+10001,Bryozoa,bryozoans (miscellaneous),0.213309305083417
+10002,Diaperoecia californica,Southern staghorn bryozoan,0.238103305553544
+11008,Pachythyone rubra,aggregated red sea cucumber,1
+11010,Ophiothrix spiculata,spiny brittle star,0.0915781944436709
+12001,Tunicata,tunicates,0.213309305083417
+13002,Miscellaneous Invertebrates excluding Ophiothrix spiculata,Miscellaneous Invertebrates excluding Ophiothrix spiculata,0.213309305083417
+15001,Bare Substrate,Bare Substrate,0.238103305553544
+15002,Rock,Rock,0.238103305553544
+15003,Cobble,Cobble,0.238103305553544
+15004,Sand,Sand,0.238103305553544

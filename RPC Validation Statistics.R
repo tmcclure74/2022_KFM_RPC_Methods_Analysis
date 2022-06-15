@@ -33,18 +33,54 @@ quad_rpc_proportions <- quad_rpc_data %>%
   ungroup()
 
 Combined_Data <- left_join(rpc_proportions, quad_rpc_proportions)
+#---------------------------------------------------------------------------
 
+#---------------------------------------------------------------------------
 #-----------------------------
 #Calculate Chi-Squared p values for each species using sites as replicates
 #-----------------------------
 
+#-----------------------------
+#Lol Cullen help plz between these - # This is the attempt using "proper" pipes and tidy-logic for accomplishing this, and where I'm weirdly stuck
+#-----------------------------
+
+#Write function that returns chi-sq p value given a summarized dataset (IE what I was doing in summarize originally, so that I can use it in map2_dfr)
+
+summarized_chisq <- function(data){
+  return(data %>%
+           group_by(Species, ScientificName, CommonName) %>%
+           summarize(ChiSq_p_val = chisq.test(average_proportion, quad_average_proportion)$p.value)
+  )
+}
+all_zeroes_chisq <- function(data){
+  return(1) #there's gotta be a simipler way to do this but I'm at peak mental capacity getting my head around map2() so... this does what I want for now
+}
+
+# This is what I *thought* might work based on the below version, based on the Stack Overflow example below that - 
+
 Pipe_ChiSq_By_Species <- Combined_Data %>%
+  mutate(all_zeroes = case_when(average_proportion == 0 & quad_average_proportion == 0 ~ 'TRUE',
+                                average_proportion != 0 | quad_average_proportion != 0 ~ 'FALSE')) %>%
+  split(.,.$all_zeroes == "TRUE") %>%
+  map2_dfr(c(summarized_chisq, all_zeroes_chisq), ~.x %>% group_by(Species, ScientificName, CommonName) %>% summarize(ChiSq_p_val = summarized_chisq(.)),.y)
+
+#EXAMPLE FROM
+
+example_df <- iris %>%
+  arrange(Species=="setosa") %>%
+  split(.,.$Species=="setosa") %>%
+  map2_dfr(c(mean,sum),~.x %>% group_by(Species) %>% summarize_at("Petal.Width",.y))
+
+
+#Previous attempt before trying to go to map2() was
+
+Pipe_ChiSq_By_Species_2 <- Combined_Data %>%
   group_by(Species, ScientificName, CommonName) %>%
   summarize(ChiSq_p_val = case_when(average_proportion == 0 && quad_average_proportion == 0 ~ 1,
                                     average_proportion != 0 && quad_average_proportion != 0 ~ chisq.test(average_proportion, quad_average_proportion)$p.value)) #turns out this doesn't need to be .$average_proportion , etc
 
 Testing_Summarized_ChiSq <- Combined_Data %>%
-  filter(Species == 2013) %>%
+  filter(Species == 2014) %>%
   summarize(ChiSq_p_val = case_when(all(average_proportion) == 0 && all(quad_average_proportion) == 0 ~ 1,
                                     all(average_proportion) != 0 && all(quad_average_proportion) != 0 ~ chisq.test(average_proportion, quad_average_proportion)$p.value)) #turns out this doesn't need to be .$average_proportion , etc
 
@@ -59,6 +95,15 @@ Testing_SummarizedChiSquared <- Combined_Data %>%
 Testing_SummarizedChiSquared2 <- Combined_Data %>%
   filter(Species == "2013")
 summarize(Testing_SummarizedChiSquared2, ChiSq_p_val = chisq.test(average_proportion, quad_average_proportion)$p.value)
+
+#Trying to get the above function working...
+Testing_SummarizedChiSquared3 <- Combined_Data %>%
+  filter(Species == "11010") %>%
+  summarize(ChiSq_p_val = summarized_chisq(.))
+
+#-----------------------------
+#Lol Cullen help plz between these
+#-----------------------------
 
 #-----------------------------
 # So much for trying to be a proper-functional programming R user, back to object oriented/loops since clearly the filter works on each individual spp.
@@ -89,9 +134,13 @@ for(i in 1:Species_List){
   }
 }
 
+write_csv(ChiSq_By_Species, "ChiSq_By_Species_Averages.csv")
+
 #---------------------------------------------------------------------------
 
+#---------------------------------------------------------------------------
 #-----------------------------
+# BOOTSTRAPPED SOLUTION - 
 #Not the cause of the issues above, but for a potentially more robust analysis - 
 #some sources suggest an N>=5 is necessary for accurate estimates in chi-Squared goodness of fit, so
 #Generate bootstrapped estimates of site means for each species so that we have enough power to run chi-squared tests
@@ -124,6 +173,8 @@ Boot_ChiSq_By_Species <- Boot_Combined_Data %>%
   group_by(Species, ScientificName, CommonName) %>%
   summarize(ChiSq_p_val = chisq.test(bootstrapped_mean, quad_bootstrapped_mean)$p.value)
 
+write_csv(Boot_ChiSq_By_Species, "ChiSq_By_Species_Bootstraps.csv")
+
 # (Same issues as above, something's up with summarize, but built this thinking something was happening because of a low n(), 
 #  but this is potentially more robust anyways so I'm not throwing away this code yet)
 
@@ -134,3 +185,5 @@ Boot_ChiSq_By_Species <- Boot_Combined_Data %>%
 
 # LATER NOTE #2 my underlying issue, now that I'm not getting all the same p-values across the summarize 
 # (IE .$ seems to eliminate the group_by() ), is that I figured out why chisq.test was misbehaving (obviously) on all zeroes.
+
+#---------------------------------------------------------------------------
